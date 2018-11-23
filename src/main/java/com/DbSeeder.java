@@ -9,5 +9,6 @@ public class DbSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         User mohamed = new User("Mohamed","Ghoubali");
+        User david
     }
 }
