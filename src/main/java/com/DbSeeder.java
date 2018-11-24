@@ -11,11 +11,20 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Db seeder.
+ */
 @Component
 public class DbSeeder implements CommandLineRunner {
     private UserRepository userRepository;
     private TaskRepository taskRepository;
 
+    /**
+     * Instantiates a new Db seeder.
+     *
+     * @param userRepository the user repository
+     * @param taskRepository the task repository
+     */
     public DbSeeder(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
