@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends MongoRepository<User,String> {
+public interface UserRepository extends MongoRepository<User, String> {
 
     User findUserByFirstName(String name);
 
     @Query(value = "{'tasks.id':?0}")
-    List<User> findByTaskId (String id);
+    List<User> findByTaskId(String id);
 }

@@ -31,10 +31,10 @@ public class DbSeeder implements CommandLineRunner {
 
             Task task1 = new Task("Make the EL exercise");
             Task task2 = new Task("Check Mohamed EL exercise");
-            Task task3 = new Task(new ObjectId().toString(),"Test Mohamed EL exercise");
+            Task task3 = new Task(new ObjectId().toString(), "Test Mohamed EL exercise");
 
             // add tasks to the db
-            List<Task> tasks = Arrays.asList(task1,task2,task3);
+            List<Task> tasks = Arrays.asList(task1, task2, task3);
             this.taskRepository.saveAll(tasks);
 
             User mohamed = new User(
@@ -54,7 +54,7 @@ public class DbSeeder implements CommandLineRunner {
             );
 
             // add users to the db
-            List<User> users = Arrays.asList(mohamed,bill,david);
+            List<User> users = Arrays.asList(mohamed, bill, david);
             this.userRepository.saveAll(users);
 
         } catch (Exception e) {

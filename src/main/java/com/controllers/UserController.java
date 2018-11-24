@@ -18,62 +18,61 @@ public class UserController {
     private UserRepository userRepository;
     private TaskRepository taskRepository;
 
-    public UserController(UserRepository userRepository, TaskRepository taskRepository){
+    public UserController(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
 
     // Get all user
     @RequestMapping("/all")
-	public List<User> getAll(){
-		return this.userRepository.findAll();
-	}
+    public List<User> getAll() {
+        return this.userRepository.findAll();
+    }
 
-	// Create user
-	@PutMapping
-    public void insert(@RequestBody User user){
+    // Create user
+    @PutMapping
+    public void insert(@RequestBody User user) {
         this.userRepository.insert(user);
     }
 
     // Update user
     @PostMapping
-    public void update(@RequestBody User user){
+    public void update(@RequestBody User user) {
         this.userRepository.save(user);
     }
 
     // Delete User by id
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") String id){
+    public void delete(@PathVariable("id") String id) {
         this.userRepository.deleteById(id);
     }
 
     // Get user by id
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable("id") String id){
+    public Optional<User> getUserById(@PathVariable("id") String id) {
         return this.userRepository.findById(id);
     }
 
     // Get user by first name
     @GetMapping("/name/{name}")
-    public User getUserByName(@PathVariable("name") String name){
+    public User getUserByName(@PathVariable("name") String name) {
         return this.userRepository.findUserByFirstName(name);
     }
 
     // Get user by task id
     @GetMapping("/task/{id}")
-    public List<User> getUserByTaskId(@PathVariable("id") String id){
+    public List<User> getUserByTaskId(@PathVariable("id") String id) {
         return this.userRepository.findByTaskId(id);
     }
 
-    //  Assign a task to a user by task id and user id
+    //  Assign a task to a user by task
     @PostMapping("assigntask/{userid}/{taskid}")
     public void assignTaskToUser(@PathVariable("userid") String userId, @PathVariable("taskid") String taskId,
                                  HttpServletResponse response) throws IOException {
         Optional<Task> taskToAssign = this.taskRepository.findById(taskId);
         Optional<User> userToAssignTask = this.userRepository.findById(userId);
 
-        if (taskToAssign.isPresent() && userToAssignTask.isPresent())
-        {
+        if (taskToAssign.isPresent() && userToAssignTask.isPresent()) {
             User user = userToAssignTask.get();
             Task task = taskToAssign.get();
             List<Task> userTask = user.getTasks();
@@ -81,8 +80,8 @@ public class UserController {
             user.setTasks(userTask);
             this.userRepository.save(user);
         } else {
-            response.sendError(422,"Enable to assign task to user. " +
-                                                "User and/or task does not exist in database");
+            response.sendError(422, "Enable to assign task to user. " +
+                    "User and/or task does not exist in database");
         }
     }
 }
