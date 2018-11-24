@@ -23,42 +23,49 @@ public class UserController {
         this.taskRepository = taskRepository;
     }
 
+    // Get all user
     @RequestMapping("/all")
 	public List<User> getAll(){
 		return this.userRepository.findAll();
 	}
 
+	// Create user
 	@PutMapping
     public void insert(@RequestBody User user){
         this.userRepository.insert(user);
     }
 
+    // Update user
     @PostMapping
     public void update(@RequestBody User user){
         this.userRepository.save(user);
     }
 
+    // Delete User by id
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
         this.userRepository.deleteById(id);
     }
 
+    // Get user by id
     @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable("id") String id){
         return this.userRepository.findById(id);
     }
 
+    // Get user by first name
     @GetMapping("/name/{name}")
     public User getUserByName(@PathVariable("name") String name){
         return this.userRepository.findUserByFirstName(name);
     }
 
-    @GetMapping("/task/{description}")
-    public List<User> getUserByTaskId(@PathVariable("description") String description){
-        return this.userRepository.findByTaskId(description);
+    // Get user by task id
+    @GetMapping("/task/{id}")
+    public List<User> getUserByTaskId(@PathVariable("id") String id){
+        return this.userRepository.findByTaskId(id);
     }
 
-    //  Assign a task to a user
+    //  Assign a task to a user by task id and user id
     @PostMapping("assigntask/{userid}/{taskid}")
     public void assignTaskToUser(@PathVariable("userid") String userId, @PathVariable("taskid") String taskId,
                                  HttpServletResponse response) throws IOException {
