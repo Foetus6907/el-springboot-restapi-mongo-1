@@ -13,9 +13,6 @@ public interface UserRepository extends MongoRepository<User,String> {
 
     User findUserByFirstName(String name);
 
-    @Query(value = "{tasks.id:?0}")
-    List<Task> getAllUserTaskById(String id);
-
     @Query(value = "{'tasks.id':?0}")
     List<User> findByTaskId (String id);
 }

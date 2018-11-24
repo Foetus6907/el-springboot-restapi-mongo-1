@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.entity.Task;
 import com.entity.interfaces.TaskRepository;
+import com.entity.interfaces.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class TaskController {
 
     private TaskRepository taskRepository;
+    private UserRepository userRepository;
 
-    public TaskController(TaskRepository taskRepository) {
+    public TaskController(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
     }
 
     // Get All task
@@ -50,12 +53,7 @@ public class TaskController {
     // Retrieving all tasks from a user
     @GetMapping("/usertasks/{id}")
     public List<Task> getUserTasks(@PathVariable("id") String userId){
-        return this.taskRepository.findAll();
+        return this.userRepository.findById(userId).get().getTasks();
     }
-
-
-
-
-
 
 }
