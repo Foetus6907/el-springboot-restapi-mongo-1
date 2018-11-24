@@ -1,9 +1,13 @@
 package com.controllers;
 
+import com.entity.Task;
 import com.entity.User;
+import com.entity.interfaces.TaskRepository;
 import com.entity.interfaces.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +16,11 @@ import java.util.Optional;
 public class UserController {
 
     private UserRepository userRepository;
+    private TaskRepository taskRepository;
 
-    public UserController(UserRepository userRepository){
+    public UserController(UserRepository userRepository, TaskRepository taskRepository){
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
 
     @RequestMapping("/all")
@@ -37,7 +43,7 @@ public class UserController {
         this.userRepository.deleteById(id);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable("id") String id){
         return this.userRepository.findById(id);
     }
@@ -50,5 +56,26 @@ public class UserController {
     @GetMapping("/task/{description}")
     public List<User> getUserByTaskId(@PathVariable("description") String description){
         return this.userRepository.findByTaskId(description);
+    }
+
+    //  Assign a task to a user
+    @PostMapping("assigntask/{userid}/{taskid}")
+    public void assignTaskToUser(@PathVariable("userid") String userId, @PathVariable("taskid") String taskId,
+                                 HttpServletResponse response) throws IOException {
+        Optional<Task> taskToAssign = this.taskRepository.findById(taskId);
+        Optional<User> userToAssignTask = this.userRepository.findById(userId);
+
+        if (taskToAssign.isPresent() && userToAssignTask.isPresent())
+        {
+            User user = userToAssignTask.get();
+            Task task = taskToAssign.get();
+            List<Task> userTask = user.getTasks();
+            userTask.add(task);
+            user.setTasks(userTask);
+            this.userRepository.save(user);
+        } else {
+            response.sendError(422,"Enable to assign task to user. " +
+                                                "User and/or task does not exist in database");
+        }
     }
 }

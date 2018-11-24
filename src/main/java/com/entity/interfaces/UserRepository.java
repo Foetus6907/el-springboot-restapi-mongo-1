@@ -1,5 +1,6 @@
 package com.entity.interfaces;
 
+import com.entity.Task;
 import com.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -11,6 +12,9 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User,String> {
 
     User findUserByFirstName(String name);
+
+    @Query(value = "{tasks.id:?0}")
+    List<Task> getAllUserTaskById(String id);
 
     @Query(value = "{'tasks.id':?0}")
     List<User> findByTaskId (String id);
