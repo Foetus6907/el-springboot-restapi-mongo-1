@@ -1,11 +1,19 @@
 package com.entity;
 
+
 public class Task {
     private String id;
     private String description;
 
+    public Task() {
+    }
+
     public Task(String id, String description) {
         this.id = id;
+        this.description = description;
+    }
+
+    public Task(String description) {
         this.description = description;
     }
 

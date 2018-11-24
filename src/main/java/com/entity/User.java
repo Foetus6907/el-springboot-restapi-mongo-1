@@ -4,6 +4,7 @@ package com.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "Users")
@@ -14,12 +15,23 @@ public class User {
     private String lastName;
     private List<Task> tasks;
 
+    protected User() {
+        this.tasks = new ArrayList<>();
+    }
+
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public User(String firstName, String lastName, List<Task> tasks) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.tasks = tasks;
+    }
+
+    public User(String id, String firstName, String lastName, List<Task> tasks) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.tasks = tasks;
