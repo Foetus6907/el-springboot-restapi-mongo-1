@@ -3,7 +3,7 @@
 Spring Boot rest API application with MongoDB.
 
 # Configuration
-In the application.properties file change the mongoDB URI link with your mongoDB Atlas SRV Sonnnection String.
+In the application.properties file change the mongoDB URI link with your mongoDB Atlas SRV Connnection String.
 Change the database cluster name to something else if you want.
 
 ### Or
