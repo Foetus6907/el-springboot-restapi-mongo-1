@@ -4,12 +4,12 @@ Spring Boot rest API application with MongoDB.
 
 # Endpoint
 
-#Task
+# Task
 
-##Get all tasks
+## Get all tasks
 >GET http://localhost:8080/tasks/all
 
-##Create task
+## Create task
 >PUT http://localhost:8080/tasks/
 
 >HEADERS
@@ -24,10 +24,10 @@ application/json
 }
 ```
 
-##Get task by Id
+## Get task by Id
 >GET http://localhost:8080/tasks/{taskId}
 
-##Update task
+## Update task
 >POST http://localhost:8080/tasks/
 
 >HEADERS
@@ -42,15 +42,15 @@ application/json
 }
 ```
 
-##Get all all task of user by user id
+## Get all all task of user by user id
 >GET http://localhost:8080/tasks/usertasks/{userId}
 
-#User
+# User
 
-##Get all users
+## Get all users
 >GET http://localhost:8080/users/all
 
-##Create user
+## Create user
 >PUT http://localhost:8080/users/
 
 >HEADERS
@@ -72,7 +72,7 @@ application/json
 ]}
 ```
 
-##Update user
+## Update user
 >POST http://localhost:8080/users/
 
 >HEADERS
@@ -93,20 +93,20 @@ application/json
 }
 ```
 
-##Get User by Id task
+## Get User by Id task
 >GET http://localhost:8080/users/task/{taskId}
 
-##Get User by firstname
+## Get User by firstname
 >GET http://localhost:8080/users/name/{userFisrtName}
 
-##Get user by Id
+## Get user by Id
 >GET http://localhost:8080/users/{userId}
 
-##Assign Task to User by user id and task id
+## Assign Task to User by user id and task id
 >POST http://localhost:8080/users/assigntask/{userId}/{taskId}
 
-##Delete user by user id
+## Delete user by user id
 >DELETE http://localhost:8080/users/{userId}
 
-##Delete task by task id
+## Delete task by task id
 >DELETE http://localhost:8080/tasks/{taskId}
