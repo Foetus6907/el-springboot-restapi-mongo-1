@@ -3,6 +3,7 @@ package com.controllers;
 import com.entity.Task;
 import com.entity.interfaces.TaskRepository;
 import com.entity.interfaces.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +16,15 @@ import java.util.Optional;
 @RequestMapping("/tasks")
 public class TaskController {
 
+    @Autowired
     private TaskRepository taskRepository;
+    @Autowired
     private UserRepository userRepository;
 
     /**
      * Instantiates a new Task controller.
-     *
-     * @param taskRepository the task repository
-     * @param userRepository the user repository
      */
-    public TaskController(TaskRepository taskRepository, UserRepository userRepository) {
-        this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
+    public TaskController() {
     }
 
     /**
