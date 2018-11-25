@@ -2,6 +2,24 @@
 
 Spring Boot rest API application with MongoDB.
 
+# Configuration
+In the application.properties file change the mongoDB URI link with your mongoDB Atlas SRV Sonnnection String.
+Change the database cluster name to something else if you want.
+
+### Or
+Configure your application (file application properties) with the "MONGODB (MongoProperties)"
+```
+spring.data.mongodb.host= # the db host
+spring.data.mongodb.port=27017 # the connection port (defaults to 27107)
+spring.data.mongodb.uri=mongodb://localhost/test # connection URL
+spring.data.mongodb.database=
+spring.data.mongodb.authentication-database=
+spring.data.mongodb.grid-fs-database=
+spring.data.mongodb.username=
+spring.data.mongodb.password=
+spring.data.mongodb.repositories.enabled=true # if spring data repository support is enabled
+```
+
 # Endpoint
 
 Online Postman API documentation :
