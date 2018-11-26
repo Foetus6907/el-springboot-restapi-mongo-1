@@ -1,8 +1,7 @@
 package com.controllers;
 
 import com.entity.Task;
-import com.entity.interfaces.TaskRepository;
-import com.entity.interfaces.UserRepository;
+import com.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +15,11 @@ import java.util.Optional;
 @RequestMapping("/tasks")
 public class TaskController {
 
+    /**
+     * The Task service.
+     */
     @Autowired
-    private TaskRepository taskRepository;
-    @Autowired
-    private UserRepository userRepository;
+    TaskService taskService;
 
     /**
      * Instantiates a new Task controller.
@@ -33,8 +33,8 @@ public class TaskController {
      * @return the all
      */
     @RequestMapping("/all")
-    public List<Task> getAll() {
-        return this.taskRepository.findAll();
+    public List<Task> getAllTask() {
+        return this.taskService.findAll();
     }
 
     /**
@@ -44,7 +44,7 @@ public class TaskController {
      */
     @PutMapping
     public void insert(@RequestBody Task task) {
-        this.taskRepository.insert(task);
+        this.taskService.insert(task);
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskController {
      */
     @PostMapping
     public void update(@RequestBody Task task) {
-        this.taskRepository.save(task);
+        this.taskService.save(task);
     }
 
     /**
@@ -64,7 +64,7 @@ public class TaskController {
      */
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
-        this.taskRepository.deleteById(id);
+        this.taskService.deleteById(id);
     }
 
     /**
@@ -75,7 +75,7 @@ public class TaskController {
      */
     @GetMapping("/{id}")
     public Optional<Task> getTaskById(@PathVariable("id") String id) {
-        return this.taskRepository.findById(id);
+        return this.taskService.findById(id);
     }
 
     /**
@@ -86,7 +86,7 @@ public class TaskController {
      */
     @GetMapping("/usertasks/{id}")
     public List<Task> getUserTasks(@PathVariable("id") String userId) {
-        return this.userRepository.findById(userId).get().getTasks();
+        return this.taskService.getUserTasks(userId);
     }
 
 }
