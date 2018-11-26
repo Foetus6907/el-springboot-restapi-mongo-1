@@ -3,7 +3,7 @@ package com.controllers;
 import com.ElSpringbootRestapiMongo1Application;
 import com.entity.Task;
 import com.entity.User;
-import com.entity.interfaces.TaskRepository;
+import com.services.TaskService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,11 +40,12 @@ public class TaskControllerTest {
      */
     @Autowired
     MockMvc mockMvc;
+
     /**
-     * The Task repository.
+     * The Task service.
      */
     @MockBean
-    TaskRepository taskRepository;
+    TaskService taskService;
 
     /**
      * The Mosk task.
@@ -72,8 +73,8 @@ public class TaskControllerTest {
      * @throws Exception the exception
      */
     @Test
-    public void getAll() throws Exception {
-        Mockito.when(taskRepository.findAll()).thenReturn(Arrays.asList(moskTask));
+    public void getAllTest() throws Exception {
+        Mockito.when(taskService.findAll()).thenReturn(Arrays.asList(moskTask));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/tasks/all");
         MvcResult result = this.mockMvc.perform(requestBuilder).andReturn();
@@ -89,9 +90,14 @@ public class TaskControllerTest {
                 .getContentAsString(), true);
     }
 
+    /**
+     * Test Gets task by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void getTaskById() throws Exception {
-        Mockito.when(taskRepository.findById(Mockito.anyString())).thenReturn(java.util.Optional.ofNullable(moskTask));
+    public void getTaskByIdTest() throws Exception {
+        Mockito.when(taskService.findById(Mockito.anyString())).thenReturn(java.util.Optional.ofNullable(moskTask));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/tasks/5bfa86b7b7bca66ed344ea83");
         MvcResult result = this.mockMvc.perform(requestBuilder).andReturn();
